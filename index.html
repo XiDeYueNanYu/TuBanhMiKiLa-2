@@ -1,0 +1,1115 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>学习越南语请联系Wx:XiDeYueNanYu</title>
+    <style>
+        body {
+            background-color: #f7fbf3;
+            margin-bottom: 60px;
+        }
+        #infoBox { 
+            width: 100%; 
+			max-width: 700px;
+            height: 100px; 
+            margin: 0 auto; 
+            border: 1px solid #ccc; 
+            background: #68838B; 
+            color: #D2B48C; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            font-size: clamp(40px, 5vw, 60px);
+            font-weight: bold;
+        }
+        #contactBox { 
+            width: 100%; 
+			max-width: 700px;
+            height: 45px; 
+            margin: 0px auto; 
+            border: 1px solid #ccc; 
+            background: #68838B; 
+            color: #D2B48C; 
+            display: flex; 
+            align-items: center; 
+            justify-content: left; 
+            padding-left: 20px;
+            font-size: clamp(12px, 2vw, 15px); 
+            font-weight: bold;
+        }
+        .content-box {
+            max-width: 700px;
+            margin: 20px auto;
+            padding: 50px;
+            border: 10px solid #957652;
+            border-radius: 10px;
+            background-color: #ffffff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            font-size: 30px;
+            font-family: Arial;
+            color: #222322;
+            line-height: 3;
+            text-align: justify;
+        }
+        .translated-word {
+            position: relative;
+            display: inline-block;
+            white-space: nowrap;
+            line-height: 1.3;
+            background-color: #bfcdbf;
+            color: #000000;
+            padding: 4px 4px;
+            border-radius: 2px;
+        }
+        .translation {
+            position: absolute;
+            top: -29px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 18px;
+            background-color: #eddabc;
+            color: #313a2d;
+            padding: 4px 4px;
+            border-radius: 1px;
+            white-space: nowrap;
+            z-index: 1;
+            line-height: 1;
+        }
+        .original {
+            display: inline;
+            line-height: 1;
+        }
+        .floating-controls {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #f0f0f0;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            display: block;
+            z-index: 1000;
+        }
+        #audioPlayer {
+            width: 100%;
+            margin-bottom: 10px;
+        }
+        .time-row {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        .time-box-group {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+        .button-group {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+        .floating-controls p#timeDisplay {
+            font-size: 28px;
+            color: #FFFFFF;
+            background-color: #000000;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 0;
+        }
+        .floating-controls .time-box {
+            font-size: 16px;
+            color: #FFFFFF;
+            background-color: #555555;
+            padding: 5px 10px;
+            border-radius: 5px;
+            min-width: 60px;
+        }
+        .tua-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 5px;
+            margin-bottom: 10px;
+            flex-wrap: wrap;
+        }
+        .action-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+        .control-button {
+            width: 50px;
+            height: 50px;
+            background-color: #363535;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .control-button:disabled {
+            background-color: #888888;
+            cursor: not-allowed;
+        }
+        .control-button:hover:not(:disabled) {
+            background-color: #000000;
+        }
+        .pause-play-button {
+            background-color: #FF4500;
+        }
+        .pause-play-button:hover {
+            background-color: #CC3700;
+        }
+        .toggle-button {
+            background-color: #4682B4;
+        }
+        .toggle-button:hover {
+            background-color: #36648B;
+        }
+        .loop-button {
+            background-color: #3c923c;
+        }
+        .loop-button:hover {
+            background-color: #347d34;
+        }
+        .clear-button {
+            background-color: #bc3f13;
+        }
+        .clear-button:hover {
+            background-color: #d15124;
+        }
+        .active {
+            background-color: #ffffff; 
+            border-radius: 5px;
+        }
+        @media (max-width: 400px) {
+            .control-button {
+                width: 40px;
+                height: 40px;
+                font-size: 14px;
+            }
+            .floating-controls p#timeDisplay {
+                font-size: 20px;
+            }
+            .floating-controls .time-box {
+                font-size: 12px;
+                min-width: 50px;
+            }
+        }
+        #quizContainer {
+            display: none;
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            color: #53686f;
+            font-size: 25px;
+            font-weight: bold;
+        }
+        .question {
+            margin-bottom: 20px;
+            padding: 18px;
+            color: #53686f;
+            border: 5px solid #53686f;
+            border-radius: 10px;
+            background-color: #ffffff;
+            font-size: 20px;
+            font-weight: bold;
+        }
+        .options label {
+            display: block;
+            margin: 15px 0;
+            cursor: pointer;
+            color: #21292c;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        #result {
+            margin-top: 20px;
+            padding: 10px;
+            display: none;
+            border: 5px solid #53686f;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+            background-color: #ffffff;
+            color: #007a33;
+        }
+        .wrong-answer {
+            color: #f65936;
+            margin: 10px 0;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        #submitQuiz {
+            font-family: Arial, sans-serif;
+            padding: 10px 20px;
+            border: 3px solid #53686f;
+            background-color: #FF6820;
+            border-radius: 5px;
+            color: white;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        #submitQuiz:hover {
+            background-color: #ff844a;
+        }
+        .floating-mode-bar {
+            position: fixed;
+            bottom: 0px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #68838B;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 0px 5px rgba(0, 0, 0, 1);
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            z-index: 1000;
+            width: 900px;
+        }
+        .mode-button {
+            padding: 10px 20px;
+            border: 0px solid #ccc;
+            background: #95a8ad;
+            color: #293437;
+            font-size: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: border-color 0.3s;
+        }
+        .mode-button.active {
+            border: 2px solid #ffffff;
+            background: #f0f0f0;
+            color: #293437;
+        }
+
+
+
+
+                
+                /*-------------------------Thiet Lap Cho Di Dong-----------------------------------*/
+        @media (max-width: 768px) { 
+            body {
+            background-color: #f7fbf3;
+            margin-bottom: 60px;
+        }
+        #infoBox { 
+            width: 90%; 
+            height: 120px; 
+            margin: 0 auto; 
+            border: 1px solid #ccc; 
+            background: #68838B; 
+            color: #D2B48C; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            font-size: 60px; 
+            font-weight: bold;
+        }
+        #contactBox { 
+            width: 90%; 
+            height: 50px; 
+            margin: 0px auto; 
+            border: 1px solid #ccc; 
+            background: #68838B; 
+            color: #D2B48C; 
+            display: flex; 
+            align-items: center; 
+            justify-content: left; 
+            padding-left: 20px;
+            font-size: 20px; 
+            font-weight: bold;
+        }
+        .content-box {
+            max-width: 700px;
+            margin: 10px auto;
+            padding: 20px;
+                        padding-top: 50px;
+                        padding-bottom: 90px;
+            border: 10px solid #957652;
+            border-radius: 10px;
+            background-color: #ffffff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            font-size: 19px;
+            font-family: Arial;
+            color: #222322;
+            line-height: 3.5;
+            text-align: justify;
+        }
+        .translated-word {
+            position: relative;
+            display: inline-block;
+            white-space: nowrap;
+            line-height: 1.3;
+            background-color: #bfcdbf;
+            color: #000000;
+            padding: 3px 3px;
+            border-radius: 2px;
+        }
+        .translation {
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 13px;
+            background-color: #eddabc;
+            color: #313a2d;
+            padding: 4px 4px;
+            border-radius: 1px;
+            white-space: nowrap;
+            z-index: 1;
+            line-height: 1;
+        }
+        .original {
+            display: inline;
+            line-height: 1;
+        }
+        .floating-controls {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #f0f0f0;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            display: block;
+            z-index: 1000;
+        }
+        #audioPlayer {
+            width: 100%;
+            margin-bottom: 10px;
+        }
+        .time-row {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        .time-box-group {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+        .button-group {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+        .floating-controls p#timeDisplay {
+            font-size: 28px;
+            color: #FFFFFF;
+            background-color: #000000;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 0;
+        }
+        .floating-controls .time-box {
+            font-size: 16px;
+            color: #FFFFFF;
+            background-color: #555555;
+            padding: 5px 10px;
+            border-radius: 5px;
+            min-width: 60px;
+        }
+        .tua-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 5px;
+            margin-bottom: 10px;
+            flex-wrap: wrap;
+        }
+        .action-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+        .control-button {
+            width: 50px;
+            height: 50px;
+            background-color: #363535;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .control-button:disabled {
+            background-color: #888888;
+            cursor: not-allowed;
+        }
+        .control-button:hover:not(:disabled) {
+            background-color: #000000;
+        }
+        .pause-play-button {
+            background-color: #FF4500;
+        }
+        .pause-play-button:hover {
+            background-color: #CC3700;
+        }
+        .toggle-button {
+            background-color: #4682B4;
+        }
+        .toggle-button:hover {
+            background-color: #36648B;
+        }
+        .loop-button {
+            background-color: #3c923c;
+        }
+        .loop-button:hover {
+            background-color: #347d34;
+        }
+        .clear-button {
+            background-color: #bc3f13;
+        }
+        .clear-button:hover {
+            background-color: #d15124;
+        }
+        .active {
+            background-color: #ffffff; 
+            border-radius: 5px;
+        }
+        @media (max-width: 400px) {
+            .control-button {
+                width: 40px;
+                height: 40px;
+                font-size: 14px;
+            }
+            .floating-controls p#timeDisplay {
+                font-size: 20px;
+            }
+            .floating-controls .time-box {
+                font-size: 12px;
+                min-width: 50px;
+            }
+        }
+        #quizContainer {
+            display: none;
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            color: #53686f;
+            font-size: 25px;
+            font-weight: bold;
+        }
+        .question {
+            margin-bottom: 20px;
+            padding: 18px;
+            color: #53686f;
+            border: 5px solid #53686f;
+            border-radius: 10px;
+            background-color: #ffffff;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        .options label {
+            display: block;
+            margin: 15px 0;
+            cursor: pointer;
+            color: #21292c;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        #result {
+            margin-top: 20px;
+            padding: 10px;
+            display: none;
+            border: 5px solid #53686f;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+            background-color: #ffffff;
+            color: #007a33;
+        }
+        .wrong-answer {
+            color: #f65936;
+            margin: 10px 0;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        #submitQuiz {
+            font-family: Arial, sans-serif;
+            padding: 10px 20px;
+            border: 3px solid #53686f;
+            background-color: #FF6820;
+            border-radius: 5px;
+            color: white;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        #submitQuiz:hover {
+            background-color: #ff844a;
+        }
+        .floating-mode-bar {
+            position: fixed;
+            bottom: 0px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #68838B;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 0px 5px rgba(0, 0, 0, 1);
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            z-index: 1000;
+            width: 100%;
+        }
+        .mode-button {
+            padding: 10px 20px;
+            border: 0px solid #ccc;
+            background: #95a8ad;
+            color: #293437;
+            font-size: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: border-color 0.3s;
+        }
+        .mode-button.active {
+            border: 2px solid #ffffff;
+            background: #f0f0f0;
+            color: #293437;
+        }
+}
+    </style>
+</head>
+<body>
+    <div id="infoBox">习得越南语</div>
+    <div id="contactBox">讲师-阮玉煌 | Weixin：XiDeYueNanYu</div>
+    <div id="contentContainer">
+        <div class="content-box" id="content"></div>
+    </div>
+    <div id="quizContainer">
+        <h1>回答下面问题</h1>
+        <form id="quizForm">
+            <div id="questions"></div>
+            <button type="button" id="submitQuiz" onclick="checkAnswers()">提交</button>
+        </form>
+        <div id="result"></div>
+    </div>
+    <div class="floating-controls" id="floatingControls">
+        <audio id="audioPlayer" src="lesson.mp3" controls></audio>
+        <div class="time-row">
+            <p id="timeDisplay">00:00</p>
+            <div class="time-box-group">
+                <span class="time-box" id="loopStart">--:--</span>
+                <span class="time-box" id="loopEnd">--:--</span>
+            </div>
+            <div class="button-group">
+                <button class="control-button loop-button" id="loopButton">听</button>
+                <button class="control-button clear-button" id="clearButton">删</button>
+            </div>
+        </div>
+        <div class="tua-buttons">
+            <button class="control-button" id="rewind5sButton">-5s</button>
+            <button class="control-button" id="rewind1sButton">-1s</button>
+            <button class="control-button" id="forward1sButton">+1s</button>
+            <button class="control-button" id="forward5sButton">+5s</button>
+        </div>
+        <div class="action-buttons">
+            <button class="control-button pause-play-button" id="pausePlayButton">播</button>
+            <button class="control-button toggle-button" id="toggleControlsButton">藏</button>
+        </div>
+    </div>
+    <div class="floating-mode-bar">
+        <button class="mode-button active" id="contentMode">内容</button>
+        <button class="mode-button" id="quizMode">回答问题</button>
+    </div>
+
+    <script>
+
+const textContentData = [
+    `Tủ bánh mì nhân ái: Biểu tượng của lòng sẻ chia ở Chợ Lớn.
+Trong nhịp sống hối hả của Thành phố Hồ Chí Minh, nơi những con đường tấp nập người qua lại, một tủ bánh mì giản dị tại phường Chợ Lớn đã trở thành biểu tượng của lòng nhân ái, khơi dậy niềm tin vào những giá trị tốt đẹp của cộng đồng. Tủ bánh mì “kỳ lạ” này, đặt trước một cửa hàng thuốc đông y trên đường Hải Thượng Lãn Ông, không chỉ cung cấp bánh mì miễn phí mà còn lan tỏa tinh thần sẻ chia, truyền cảm hứng cho những ai vô tình đi ngang qua. Mỗi buổi sáng, chiếc tủ lại được lấp đầy bởi hàng trăm ổ bánh mì thơm ngon, sẵn sàng phục vụ những người cần, từ người bán vé số, nhặt ve chai đến tài xế công nghệ hay người khuyết tật.
+    Chủ nhân của tủ bánh mì đặc biệt này là bà Bích Phượng, một người phụ nữ 50 tuổi với trái tim tràn đầy lòng nhân ái. Hơn năm năm qua, bà đều đặn duy trì hoạt động từ thiện này, bất kể những khó khăn cá nhân. Mỗi ngày, khoảng 150 ổ bánh mì được bà chuẩn bị kỹ lưỡng và đặt vào tủ, kèm theo một thùng nước uống miễn phí với ly nhựa sạch sẽ. “Tôi không giàu có, nhưng tôi tin rằng, dù chỉ là một ổ bánh mì, nó cũng có thể mang lại niềm vui và sự hỗ trợ nhỏ bé cho những người đang cần,” bà Phượng chia sẻ. Hành động giản dị nhưng đầy ý nghĩa này không chỉ giúp đỡ những người có hoàn cảnh khó khăn mà còn khơi dậy tinh thần đoàn kết trong cộng đồng.
+    Tủ bánh mì không chỉ là sáng kiến của riêng bà Phượng mà còn trở thành điểm kết nối của những tấm lòng thơm thảo. Nhiều người dân sống quanh khu vực từ những em nhỏ được mẹ giao tiền mua bánh đến các cụ già nghỉ hưu thường xuyên đóng góp thêm bánh mì xôi hoặc chè đặc biệt vào những ngày rằm và mùng một âm lịch. Một em bé từng mang gần chục ổ bánh mì để bỏ vào tủ hành động ấy khiến bà Phượng xúc động mãi không quên. “Tôi không chỉ cho đi mà còn nhận lại rất nhiều đó là tình cảm chân thành và sự bình an trong tâm hồn” bà bày tỏ.
+    Hành động từ thiện này đã tạo nên một hiệu ứng tích cực lan tỏa trong cộng đồng. Bà Lợi một người bán vé số 67 tuổi chia sẻ rằng ổ bánh mì và ly nước miễn phí mỗi sáng giúp bà tiết kiệm chi phí đồng thời mang lại niềm vui giản dị giữa những ngày mưu sinh vất vả. Một tài xế công nghệ thường xuyên ghé lấy nước uống cho biết: “Giữa trưa nắng nóng được uống một ly nước miễn phí không chỉ giải khát mà còn khiến tôi cảm nhận được sự ấm áp của thành phố này nơi luôn tồn tại những điều tử tế.”
+    Tủ bánh mì nhân ái không chỉ là một giải pháp hỗ trợ thiết thực mà còn là biểu tượng của sự bền vững trong việc sẻ chia. Nó nhắc nhở chúng ta rằng trong một xã hội đang phát triển không ngừng những giá trị nhân văn vẫn luôn hiện hữu được gìn giữ và lan tỏa bởi những con người bình dị. Với bà Phượng và những người đóng góp tủ bánh mì không chỉ là nơi cung cấp thực phẩm mà còn là cầu nối của tình người mang lại niềm tin rằng lòng tốt luôn có thể thay đổi cuộc sống dù chỉ qua những điều nhỏ bé nhất.`
+];
+const dictionary = {
+    "tủ bánh mì": "面包柜",
+    "nhân ái": "仁爱",
+    "Biểu tượng": "象征",
+        "biểu tượng": "象征",
+    "lòng sẻ chia": "分享精神",
+    "nhịp sống": "生活节奏",
+    "hối hả": "匆忙",
+    "tấp nập": "熙熙攘攘",
+    "giản dị": "朴素",
+    "khơi dậy": "唤起",
+    "niềm tin": "信念",
+    "giá trị": "价值",
+    "cộng đồng": "社区",
+    "kỳ lạ": "奇妙",
+    "cửa hàng": "店铺",
+    "thuốc đông y": "中药",
+    "cung cấp": "提供",
+    "miễn phí": "免费",
+    "lan tỏa": "传播",
+    "tinh thần": "精神",
+    "truyền cảm hứng": "启发",
+    "vô tình": "无意中",
+    "lấp đầy": "填满",
+    "thơm ngon": "香喷喷",
+    "phục vụ": "服务",
+    "người bán vé số": "彩票小贩",
+    "nhặt ve chai": "捡瓶子",
+    "tài xế công nghệ": "网约车司机",
+    "người khuyết tật": "残障人士",
+    "chủ nhân": "主人",
+    "trái tim": "心灵",
+    "tràn đầy": "充满",
+    "đều đặn": "定期",
+    "duy trì": "维持",
+    "hoạt động": "活动",
+    "từ thiện": "慈善",
+    "khó khăn": "困难",
+    "cá nhân": "个人",
+    "chuẩn bị": "准备",
+    "kỹ lưỡng": "仔细",
+    "sạch sẽ": "干净",
+    "giàu có": "富有",
+    "niềm vui": "快乐",
+    "hỗ trợ": "帮助",
+    "nhỏ bé": "微小",
+    "hành động": "行动",
+    "đầy ý nghĩa": "充满意义",
+    "giúp đỡ": "帮助",
+    "hoàn cảnh": "处境",
+    "khơi dậy": "激发",
+    "đoàn kết": "团结",
+    "sáng kiến": "创意",
+    "kết nối": "连接",
+    "tấm lòng": "心意",
+    "thơm thảo": "善良",
+    "đóng góp": "贡献",
+    "xôi": "糯米饭",
+    "chè": "甜汤",
+    "âm lịch": "农历",
+    "xúc động": "感动",
+    "chân thành": "真诚",
+    "bình an": "平安",
+    "tâm hồn": "心灵",
+    "tích cực": "积极",
+    "chi phí": "费用",
+    "mưu sinh": "谋生",
+    "vất vả": "辛苦",
+    "giải khát": "解渴",
+    "ấm áp": "温暖",
+    "tử tế": "善良",
+    "giải pháp": "解决方案",
+    "thiết thực": "实用",
+    "bền vững": "可持续",
+    "nhắc nhở": "提醒",
+    "phát triển": "发展",
+    "không ngừng": "不断",
+    "nhân văn": "人文",
+    "hiện hữu": "存在",
+    "gìn giữ": "保存",
+    "bình dị": "平凡",
+    "cầu nối": "桥梁",
+    "tình người": "人情",
+    "lòng tốt": "善意",
+    "thay đổi": "改变",
+    "cuộc sống": "生活"
+};
+const quizData = [
+    {
+        question: "Theo bài viết, điều gì khiến tủ bánh mì trở nên đặc biệt so với các hoạt động từ thiện khác?",
+        options: ["Nó được đặt tại trung tâm thành phố đông đúc", "Nó được tài trợ bởi chính quyền địa phương", "Nó duy trì đều đặn trong nhiều năm và thu hút nhiều người đóng góp", "Nó chỉ phục vụ người khuyết tật và người bán vé số"],
+        correct: "Nó duy trì đều đặn trong nhiều năm và thu hút nhiều người đóng góp"
+    },
+    {
+        question: "Tác giả dùng hình ảnh “mỗi buổi sáng, chiếc tủ lại được lấp đầy...” nhằm nhấn mạnh điều gì?",
+        options: ["Tủ bánh mì được vệ sinh thường xuyên", "Nguồn cung cấp bánh mì là từ nhiều nhà tài trợ lớn", "Tủ bánh mì hoạt động đều đặn và liên tục", "Người dân xếp hàng chờ nhận bánh từ sớm"],
+        correct: "Tủ bánh mì hoạt động đều đặn và liên tục"
+    },
+    {
+        question: "Điều nào dưới đây KHÔNG đúng với nội dung văn bản?",
+        options: ["Tủ bánh mì đặt ở khu vực gần bệnh viện", "Bà Phượng không chỉ phát bánh mì mà còn cung cấp nước miễn phí", "Người dân quanh khu vực thường góp thêm bánh, xôi, chè", "Một số người nhận được cả sự hỗ trợ vật chất lẫn tinh thần từ tủ bánh mì"],
+        correct: "Tủ bánh mì đặt ở khu vực gần bệnh viện"
+    },
+    {
+        question: "Chức năng nào sau đây KHÔNG thuộc vai trò của tủ bánh mì theo bài viết?",
+        options: ["Cung cấp lương thực cho người nghèo", "Tạo cầu nối cộng đồng", "Hỗ trợ chính quyền trong các chương trình xã hội", "Gợi lại lòng nhân ái giữa người với người"],
+        correct: "Hỗ trợ chính quyền trong các chương trình xã hội"
+    },
+    {
+        question: "Câu “Tôi không chỉ cho đi, mà còn nhận lại rất nhiều…” của bà Phượng thể hiện điều gì?",
+        options: ["Bà đã nhận lại được tài chính từ cộng đồng", "Công việc từ thiện khiến bà nổi tiếng", "Bà cảm thấy được sự bình an và yêu thương từ việc làm của mình", "Bà cảm thấy mệt mỏi nhưng vẫn cố gắng"],
+        correct: "Bà cảm thấy được sự bình an và yêu thương từ việc làm của mình"
+    },
+    {
+        question: "Thái độ chung của tác giả đối với nhân vật bà Phượng là gì?",
+        options: ["Trung lập, khách quan", "Phê phán nhẹ nhàng", "Khâm phục và tôn vinh", "Ngờ vực và hoài nghi"],
+        correct: "Khâm phục và tôn vinh"
+    },
+    {
+        question: "Câu nào sau đây đúng với thông điệp chính của văn bản?",
+        options: ["Việc từ thiện nhỏ không mang lại giá trị thực tế", "Tình người có thể được khơi dậy từ những hành động giản dị", "Mỗi người nên tự tạo ra tủ bánh mì riêng để giúp xã hội", "Phải có tổ chức đứng ra quản lý thì từ thiện mới hiệu quả"],
+        correct: "Tình người có thể được khơi dậy từ những hành động giản dị"
+    },
+    {
+        question: "Tại sao tác giả lại kể về em bé mang bánh mì đến bỏ vào tủ?",
+        options: ["Để cho thấy trẻ em thường tò mò về tủ bánh", "Để minh chứng tủ bánh ảnh hưởng đến nhiều tầng lớp", "Để chứng minh sự thiếu lương thực trầm trọng", "Để kêu gọi phụ huynh cho con làm việc thiện"],
+        correct: "Để minh chứng tủ bánh ảnh hưởng đến nhiều tầng lớp"
+    },
+    {
+        question: "Chi tiết nào trong bài cho thấy tủ bánh mì có tác động đến người nhận lẫn người cho?",
+        options: ["Hàng trăm ổ bánh được phát mỗi ngày", "Người nhận cảm thấy vui, người cho cảm thấy bình an", "Chính quyền địa phương hỗ trợ hoạt động", "Người dân bắt đầu mở thêm các cửa hàng bánh mì"],
+        correct: "Người nhận cảm thấy vui, người cho cảm thấy bình an"
+    },
+    {
+        question: "Từ “giản dị” trong cụm “hành động giản dị nhưng đầy ý nghĩa” gần nhất mang nghĩa nào sau đây?",
+        options: ["Mộc mạc, không phô trương", "Thiếu chuyên môn", "Đơn điệu và nhàm chán", "Không hiệu quả rõ ràng"],
+        correct: "Mộc mạc, không phô trương"
+    },
+    {
+        question: "Điều nào sau đây phản ánh chính xác mối quan hệ giữa tủ bánh mì và cộng đồng?",
+        options: ["Tủ bánh mì được cộng đồng xem là dịch vụ thay thế cho chợ", "Tủ bánh mì là nơi duy nhất người nghèo có thể ăn miễn phí", "Tủ bánh mì tạo ra sự chia rẽ do không đủ phần phát", "Tủ bánh mì gắn kết cộng đồng thông qua lòng sẻ chia"],
+        correct: "Tủ bánh mì gắn kết cộng đồng thông qua lòng sẻ chia"
+    },
+    {
+        question: "Câu nào sau đây phản ánh ý tưởng chính của đoạn cuối bài đọc?",
+        options: ["Mọi hoạt động thiện nguyện nên có thời hạn cụ thể", "Cần có sự tài trợ lớn để duy trì từ thiện lâu dài", "Sự sẻ chia bình dị vẫn luôn hiện diện trong xã hội hiện đại", "Tủ bánh mì là cách để quảng bá thương hiệu cá nhân"],
+        correct: "Sự sẻ chia bình dị vẫn luôn hiện diện trong xã hội hiện đại"
+    }
+];
+                
+        // Xử lý hiển thị văn bản với từ điển
+        const content = document.getElementById('content');
+        function renderText() {
+            let html = textContentData[0].replace(/\n/g, "<br>");
+            const sortedKeys = Object.keys(dictionary).sort((a, b) => b.length - a.length);
+            sortedKeys.forEach(key => {
+                const regex = new RegExp(`(^|\\s|[.,])(${key})(\\s|[.,]|$)`, 'g');
+                html = html.replace(regex, `$1<span class="translated-word"><span class="translation">${dictionary[key]}</span><span class="original">$2</span></span>$3`);
+            });
+            content.innerHTML = html;
+        }
+
+        // Gọi hàm renderText khi khởi tạo
+        renderText();
+
+        // Xử lý audio và bảng điều khiển
+        const audioPlayer = document.getElementById("audioPlayer");
+        const floatingControls = document.getElementById("floatingControls");
+        const timeDisplay = floatingControls.querySelector("#timeDisplay");
+        const loopStart = floatingControls.querySelector("#loopStart");
+        const loopEnd = floatingControls.querySelector("#loopEnd");
+        const loopButton = floatingControls.querySelector("#loopButton");
+        const clearButton = floatingControls.querySelector("#clearButton");
+        const rewind5sButton = floatingControls.querySelector("#rewind5sButton");
+        const rewind1sButton = floatingControls.querySelector("#rewind1sButton");
+        const forward1sButton = floatingControls.querySelector("#forward1sButton");
+        const forward5sButton = floatingControls.querySelector("#forward5sButton");
+        const pausePlayButton = floatingControls.querySelector("#pausePlayButton");
+        const toggleControlsButton = floatingControls.querySelector("#toggleControlsButton");
+        const tuaButtons = floatingControls.querySelector(".tua-buttons");
+
+        function formatTime(seconds) {
+            const minutes = Math.floor(seconds / 60);
+            const secs = Math.floor(seconds % 60);
+            return `${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+        }
+
+        function updateTimeDisplay(displayElement) {
+            displayElement.textContent = formatTime(audioPlayer.currentTime);
+        }
+
+        let customLoopStart = null;
+        let customLoopEnd = null;
+        let clickCount = 0;
+        let isLooping = false;
+
+        const updateInterval = setInterval(() => updateTimeDisplay(timeDisplay), 1000);
+
+        audioPlayer.ontimeupdate = function() {
+            updateTimeDisplay(timeDisplay);
+            if (isLooping && customLoopStart !== null && customLoopEnd !== null) {
+                if (audioPlayer.currentTime >= customLoopEnd) {
+                    audioPlayer.currentTime = customLoopStart;
+                }
+            }
+        };
+
+        timeDisplay.onclick = () => {
+            if (audioPlayer.paused) {
+                clickCount++;
+                if (clickCount === 1) {
+                    customLoopStart = audioPlayer.currentTime;
+                    loopStart.textContent = formatTime(customLoopStart);
+                } else if (clickCount === 2) {
+                    customLoopEnd = audioPlayer.currentTime;
+                    if (customLoopEnd <= customLoopStart) {
+                        customLoopEnd = null;
+                        loopEnd.textContent = "--:--";
+                    } else {
+                        loopEnd.textContent = formatTime(customLoopEnd);
+                    }
+                    clickCount = 0;
+                }
+            }
+        };
+
+        rewind5sButton.onclick = () => {
+            if (!isLooping) {
+                audioPlayer.currentTime = Math.max(0, audioPlayer.currentTime - 5);
+                updateTimeDisplay(timeDisplay);
+            }
+        };
+        rewind1sButton.onclick = () => {
+            if (!isLooping) {
+                audioPlayer.currentTime = Math.max(0, audioPlayer.currentTime - 1);
+                updateTimeDisplay(timeDisplay);
+            }
+        };
+        forward1sButton.onclick = () => {
+            if (!isLooping) {
+                audioPlayer.currentTime = Math.min(audioPlayer.duration, audioPlayer.currentTime + 1);
+                updateTimeDisplay(timeDisplay);
+            }
+        };
+        forward5sButton.onclick = () => {
+            if (!isLooping) {
+                audioPlayer.currentTime = Math.min(audioPlayer.duration, audioPlayer.currentTime + 5);
+                updateTimeDisplay(timeDisplay);
+            }
+        };
+
+        pausePlayButton.onclick = () => {
+            if (audioPlayer.paused) {
+                audioPlayer.play();
+                pausePlayButton.textContent = "停";
+            } else {
+                audioPlayer.pause();
+                pausePlayButton.textContent = "播";
+            }
+        };
+
+        loopButton.onclick = () => {
+            if (customLoopStart !== null && customLoopEnd !== null) {
+                audioPlayer.currentTime = customLoopStart;
+                audioPlayer.play();
+                isLooping = true;
+                rewind5sButton.disabled = true;
+                rewind1sButton.disabled = true;
+                forward1sButton.disabled = true;
+                forward5sButton.disabled = true;
+            }
+        };
+
+        clearButton.onclick = () => {
+            customLoopStart = null;
+            customLoopEnd = null;
+            loopStart.textContent = "--:--";
+            loopEnd.textContent = "--:--";
+            clickCount = 0;
+            isLooping = false;
+            rewind5sButton.disabled = false;
+            rewind1sButton.disabled = false;
+            forward1sButton.disabled = false;
+            forward5sButton.disabled = false;
+        };
+
+        let controlsVisible = true;
+        toggleControlsButton.onclick = () => {
+            if (controlsVisible) {
+                timeDisplay.style.display = "none";
+                tuaButtons.style.display = "none";
+                pausePlayButton.style.display = "none";
+                loopStart.style.display = "none";
+                loopEnd.style.display = "none";
+                loopButton.style.display = "none";
+                clearButton.style.display = "none";
+                toggleControlsButton.textContent = "示";
+                controlsVisible = false;
+            } else {
+                timeDisplay.style.display = "inline-block";
+                tuaButtons.style.display = "flex";
+                pausePlayButton.style.display = "inline-flex";
+                loopStart.style.display = "inline-block";
+                loopEnd.style.display = "inline-block";
+                loopButton.style.display = "inline-flex";
+                clearButton.style.display = "inline-flex";
+                toggleControlsButton.textContent = "藏";
+                controlsVisible = true;
+            }
+        };
+
+        audioPlayer.onpause = audioPlayer.onended = function() {
+            pausePlayButton.textContent = "播";
+        };
+
+
+        // Biến lưu trữ vị trí cuộn và lựa chọn
+        let contentScrollPosition = 0;
+        let quizScrollPosition = 0;
+        let userSelections = {};
+        let isSubmitted = false;
+
+        // Hiển thị câu hỏi và khôi phục lựa chọn
+        function loadQuiz() {
+            const questionsDiv = document.getElementById('questions');
+            questionsDiv.innerHTML = '';
+            quizData.forEach((item, index) => {
+                const questionDiv = document.createElement('div');
+                questionDiv.className = 'question';
+                
+                const questionTitle = document.createElement('h3');
+                questionTitle.textContent = `Câu ${index + 1}: ${item.question}`;
+                questionDiv.appendChild(questionTitle);
+
+                const optionsDiv = document.createElement('div');
+                optionsDiv.className = 'options';
+                
+                item.options.forEach(option => {
+                    const label = document.createElement('label');
+                    const isChecked = userSelections[`question${index}`] === option ? 'checked' : '';
+                    label.innerHTML = `
+                        <input type="radio" name="question${index}" value="${option}" ${isChecked}>
+                        ${option}
+                    `;
+                    optionsDiv.appendChild(label);
+                });
+
+                questionDiv.appendChild(optionsDiv);
+                questionsDiv.appendChild(questionDiv);
+            });
+
+            // Khôi phục vị trí cuộn
+            window.scrollTo(0, quizScrollPosition);
+        }
+
+        // Lưu lựa chọn của người dùng
+        function saveSelections() {
+            quizData.forEach((_, index) => {
+                const selected = document.querySelector(`input[name="question${index}"]:checked`);
+                if (selected) {
+                    userSelections[`question${index}`] = selected.value;
+                }
+            });
+        }
+
+        // Kiểm tra đáp án
+        function checkAnswers() {
+            let score = 0;
+            const total = quizData.length;
+            let wrongAnswers = [];
+            
+            quizData.forEach((item, index) => {
+                const selected = document.querySelector(`input[name="question${index}"]:checked`);
+                if (selected) {
+                    if (selected.value === item.correct) {
+                        score++;
+                    } else {
+                        wrongAnswers.push({
+                            question: item.question,
+                            selected: selected.value,
+                            correct: item.correct
+                        });
+                    }
+                } else {
+                    wrongAnswers.push({
+                        question: item.question,
+                        selected: "未选择",
+                        correct: item.correct
+                    });
+                }
+            });
+
+            const resultDiv = document.getElementById('result');
+            resultDiv.style.display = 'block';
+            resultDiv.innerHTML = `
+                <h3>YD2-结果: ${score}/${total} 答案正确</h3>
+                <p>比例: ${(score/total * 100).toFixed(2)}%</p>
+            `;
+
+            if (wrongAnswers.length > 0) {
+                resultDiv.innerHTML += '<h4>错误答案:</h4>';
+                wrongAnswers.forEach((wrong, index) => {
+                    resultDiv.innerHTML += `
+                        <div class="wrong-answer">
+                            Câu ${quizData.findIndex(q => q.question === wrong.question) + 1}: ${wrong.question}<br>
+                            你的选择: ${wrong.selected} - 正确答案: ${wrong.correct}
+                        </div>
+                    `;
+                });
+            } else {
+                resultDiv.innerHTML += '<p>回答正确所有问题</p>';
+            }
+
+            resultDiv.scrollIntoView({ behavior: 'smooth' });
+            isSubmitted = true; // Đánh dấu đã nộp bài
+        }
+
+        // Xử lý chế độ hiển thị
+        const contentModeButton = document.getElementById('contentMode');
+        const quizModeButton = document.getElementById('quizMode');
+        const contentContainer = document.getElementById('contentContainer');
+        const quizContainer = document.getElementById('quizContainer');
+
+        contentModeButton.addEventListener('click', () => {
+            // Lưu vị trí cuộn của quiz trước khi chuyển
+            quizScrollPosition = window.scrollY;
+            saveSelections(); // Lưu lựa chọn của người dùng
+            
+            contentContainer.style.display = 'block';
+            quizContainer.style.display = 'none';
+            contentModeButton.classList.add('active');
+            quizModeButton.classList.remove('active');
+            floatingControls.style.display = 'block';
+            renderText();
+            
+            // Khôi phục vị trí cuộn của content
+            window.scrollTo(0, contentScrollPosition);
+        });
+
+        quizModeButton.addEventListener('click', () => {
+            // Lưu vị trí cuộn của content trước khi chuyển
+            contentScrollPosition = window.scrollY;
+            saveSelections(); // Lưu lựa chọn của người dùng
+            
+            contentContainer.style.display = 'none';
+            quizContainer.style.display = 'block';
+            quizModeButton.classList.add('active');
+            contentModeButton.classList.remove('active');
+            floatingControls.style.display = 'none';
+            
+            // Reset lựa chọn nếu đã nộp bài
+            if (isSubmitted) {
+                userSelections = {};
+                isSubmitted = false;
+            }
+            
+            loadQuiz();
+        });
+
+        // Mặc định hiển thị nội dung
+        contentContainer.style.display = 'block';
+        quizContainer.style.display = 'none';
+    </script>
+</body>
+</html>
