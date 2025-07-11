@@ -11,7 +11,7 @@
         }
         #infoBox { 
             width: 100%; 
-			max-width: 700px;
+            max-width: 700px;
             height: 100px; 
             margin: 0 auto; 
             border: 1px solid #ccc; 
@@ -25,7 +25,7 @@
         }
         #contactBox { 
             width: 100%; 
-			max-width: 700px;
+            max-width: 700px;
             height: 45px; 
             margin: 0px auto; 
             border: 1px solid #ccc; 
@@ -37,6 +37,21 @@
             padding-left: 20px;
             font-size: clamp(12px, 2vw, 15px); 
             font-weight: bold;
+        }
+        .image-frame {
+            max-width: 700px;
+            margin: 20px auto 0 auto;
+            border: 10px solid #957652;
+            border-radius: 10px;
+            background-color: #ffffff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            display: none;
+            overflow: hidden;
+        }
+        .image-frame img {
+            width: 100%;
+            height: auto;
+            display: block;
         }
         .content-box {
             max-width: 700px;
@@ -295,310 +310,324 @@
             background: #f0f0f0;
             color: #293437;
         }
-
-
-
-
-                
-                /*-------------------------Thiet Lap Cho Di Dong-----------------------------------*/
+        /* Mobile styles */
         @media (max-width: 768px) { 
             body {
-            background-color: #f7fbf3;
-            margin-bottom: 60px;
-        }
-        #infoBox { 
-            width: 90%; 
-            height: 120px; 
-            margin: 0 auto; 
-            border: 1px solid #ccc; 
-            background: #68838B; 
-            color: #D2B48C; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            font-size: 60px; 
-            font-weight: bold;
-        }
-        #contactBox { 
-            width: 90%; 
-            height: 50px; 
-            margin: 0px auto; 
-            border: 1px solid #ccc; 
-            background: #68838B; 
-            color: #D2B48C; 
-            display: flex; 
-            align-items: center; 
-            justify-content: left; 
-            padding-left: 20px;
-            font-size: 20px; 
-            font-weight: bold;
-        }
-        .content-box {
-            max-width: 700px;
-            margin: 10px auto;
-            padding: 20px;
-                        padding-top: 50px;
-                        padding-bottom: 90px;
-            border: 10px solid #957652;
-            border-radius: 10px;
-            background-color: #ffffff;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            font-size: 19px;
-            font-family: Arial;
-            color: #222322;
-            line-height: 3.5;
-            text-align: justify;
-        }
-        .translated-word {
-            position: relative;
-            display: inline-block;
-            white-space: nowrap;
-            line-height: 1.3;
-            background-color: #bfcdbf;
-            color: #000000;
-            padding: 3px 3px;
-            border-radius: 2px;
-        }
-        .translation {
-            position: absolute;
-            top: -25px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 13px;
-            background-color: #eddabc;
-            color: #313a2d;
-            padding: 4px 4px;
-            border-radius: 1px;
-            white-space: nowrap;
-            z-index: 1;
-            line-height: 1;
-        }
-        .original {
-            display: inline;
-            line-height: 1;
-        }
-        .floating-controls {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background-color: #f0f0f0;
-            padding: 10px;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-            text-align: center;
-            display: block;
-            z-index: 1000;
-        }
-        #audioPlayer {
-            width: 100%;
-            margin-bottom: 10px;
-        }
-        .time-row {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 10px;
-        }
-        .time-box-group {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-        }
-        .button-group {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-        }
-        .floating-controls p#timeDisplay {
-            font-size: 28px;
-            color: #FFFFFF;
-            background-color: #000000;
-            padding: 5px 10px;
-            border-radius: 5px;
-            cursor: pointer;
-            margin: 0;
-        }
-        .floating-controls .time-box {
-            font-size: 16px;
-            color: #FFFFFF;
-            background-color: #555555;
-            padding: 5px 10px;
-            border-radius: 5px;
-            min-width: 60px;
-        }
-        .tua-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 5px;
-            margin-bottom: 10px;
-            flex-wrap: wrap;
-        }
-        .action-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-        }
-        .control-button {
-            width: 50px;
-            height: 50px;
-            background-color: #363535;
-            color: white;
-            border: none;
-            border-radius: 50%;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            display: inline-flex;
-            justify-content: center;
-            align-items: center;
-        }
-        .control-button:disabled {
-            background-color: #888888;
-            cursor: not-allowed;
-        }
-        .control-button:hover:not(:disabled) {
-            background-color: #000000;
-        }
-        .pause-play-button {
-            background-color: #FF4500;
-        }
-        .pause-play-button:hover {
-            background-color: #CC3700;
-        }
-        .toggle-button {
-            background-color: #4682B4;
-        }
-        .toggle-button:hover {
-            background-color: #36648B;
-        }
-        .loop-button {
-            background-color: #3c923c;
-        }
-        .loop-button:hover {
-            background-color: #347d34;
-        }
-        .clear-button {
-            background-color: #bc3f13;
-        }
-        .clear-button:hover {
-            background-color: #d15124;
-        }
-        .active {
-            background-color: #ffffff; 
-            border-radius: 5px;
-        }
-        @media (max-width: 400px) {
-            .control-button {
-                width: 40px;
-                height: 40px;
-                font-size: 14px;
+                background-color: #f7fbf3;
+                margin-bottom: 60px;
+            }
+            #infoBox { 
+                width: 90%; 
+                height: 120px; 
+                margin: 0 auto; 
+                border: 1px solid #ccc; 
+                background: #68838B; 
+                color: #D2B48C; 
+                display: flex; 
+                align-items: center; 
+                justify-content: center; 
+                font-size: 60px; 
+                font-weight: bold;
+            }
+            #contactBox { 
+                width: 90%; 
+                height: 50px; 
+                margin: 0px auto; 
+                border: 1px solid #ccc; 
+                background: #68838B; 
+                color: #D2B48C; 
+                display: flex; 
+                align-items: center; 
+                justify-content: left; 
+                padding-left: 20px;
+                font-size: 20px; 
+                font-weight: bold;
+            }
+            .image-frame {
+                width: 90%;
+                max-width: 700px;
+                margin: 10 screen auto 0 auto;
+                border: 10px solid #957652;
+                border-radius: 10px;
+                background-color: #ffffff;
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+                display: none;
+                overflow: hidden;
+            }
+            .image-frame img {
+                width: 100%;
+                height: auto;
+                display: block;
+            }
+            .content-box {
+                max-width: 700px;
+                margin: 10px auto;
+                padding: 20px;
+                padding-top: 50px;
+                padding-bottom: 90px;
+                border: 10px solid #957652;
+                border-radius: 10px;
+                background-color: #ffffff;
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+                font-size: 19px;
+                font-family: Arial;
+                color: #222322;
+                line-height: 3.5;
+                text-align: justify;
+            }
+            .translated-word {
+                position: relative;
+                display: inline-block;
+                white-space: nowrap;
+                line-height: 1.3;
+                background-color: #bfcdbf;
+                color: #000000;
+                padding: 3px 3px;
+                border-radius: 2px;
+            }
+            .translation {
+                position: absolute;
+                top: -25px;
+                left: 50%;
+                transform: translateX(-50%);
+                font-size: 13px;
+                background-color: #eddabc;
+                color: #313a2d;
+                padding: 4px 4px;
+                border-radius: 1px;
+                white-space: nowrap;
+                z-index: 1;
+                line-height: 1;
+            }
+            .original {
+                display: inline;
+                line-height: 1;
+            }
+            .floating-controls {
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background-color: #f0f0f0;
+                padding: 10px;
+                border-radius: 5px;
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+                text-align: center;
+                display: block;
+                z-index: 1000;
+            }
+            #audioPlayer {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+            .time-row {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 10px;
+                margin-bottom: 10px;
+            }
+            .time-box-group {
+                display: flex;
+                justify-content: center;
+                gap: 10px;
+            }
+            .button-group {
+                display: flex;
+                justify-content: center;
+                gap: 10px;
             }
             .floating-controls p#timeDisplay {
-                font-size: 20px;
+                font-size: 28px;
+                color: #FFFFFF;
+                background-color: #000000;
+                padding: 5px 10px;
+                border-radius: 5px;
+                cursor: pointer;
+                margin: 0;
             }
             .floating-controls .time-box {
-                font-size: 12px;
-                min-width: 50px;
+                font-size: 16px;
+                color: #FFFFFF;
+                background-color: #555555;
+                padding: 5px 10px;
+                border-radius: 5px;
+                min-width: 60px;
+            }
+            .tua-buttons {
+                display: flex;
+                justify-content: center;
+                gap: 5px;
+                margin-bottom: 10px;
+                flex-wrap: wrap;
+            }
+            .action-buttons {
+                display: flex;
+                justify-content: center;
+                gap: 10px;
+            }
+            .control-button {
+                width: 50px;
+                height: 50px;
+                background-color: #363535;
+                color: white;
+                border: none;
+                border-radius: 50%;
+                font-size: 16px;
+                font-weight: bold;
+                cursor: pointer;
+                display: inline-flex;
+                justify-content: center;
+                align-items: center;
+            }
+            .control-button:disabled {
+                background-color: #888888;
+                cursor: not-allowed;
+            }
+            .control-button:hover:not(:disabled) {
+                background-color: #000000;
+            }
+            .pause-play-button {
+                background-color: #FF4500;
+            }
+            .pause-play-button:hover {
+                background-color: #CC3700;
+            }
+            .toggle-button {
+                background-color: #4682B4;
+            }
+            .toggle-button:hover {
+                background-color: #36648B;
+            }
+            .loop-button {
+                background-color: #3c923c;
+            }
+            .loop-button:hover {
+                background-color: #347d34;
+            }
+            .clear-button {
+                background-color: #bc3f13;
+            }
+            .clear-button:hover {
+                background-color: #d15124;
+            }
+            .active {
+                background-color: #ffffff; 
+                border-radius: 5px;
+            }
+            @media (max-width: 400px) {
+                .control-button {
+                    width: 40px;
+                    height: 40px;
+                    font-size: 14px;
+                }
+                .floating-controls p#timeDisplay {
+                    font-size: 20px;
+                }
+                .floating-controls .time-box {
+                    font-size: 12px;
+                    min-width: 50px;
+                }
+            }
+            #quizContainer {
+                display: none;
+                font-family: Arial, sans-serif;
+                max-width: 800px;
+                margin: 20px auto;
+                padding: 20px;
+                color: #53686f;
+                font-size: 25px;
+                font-weight: bold;
+            }
+            .question {
+                margin-bottom: 20px;
+                padding: 18px;
+                color: #53686f;
+                border: 5px solid #53686f;
+                border-radius: 10px;
+                background-color: #ffffff;
+                font-size: 16px;
+                font-weight: bold;
+            }
+            .options label {
+                display: block;
+                margin: 15px 0;
+                cursor: pointer;
+                color: #21292c;
+                font-size: 16px;
+                font-weight: bold;
+            }
+            #result {
+                margin-top: 20px;
+                padding: 10px;
+                display: none;
+                border: 5px solid #53686f;
+                border-radius: 5px;
+                font-size: 16px;
+                font-weight: bold;
+                background-color: #ffffff;
+                color: #007a33;
+            }
+            .wrong-answer {
+                color: #f65936;
+                margin: 10px 0;
+                font-size: 16px;
+                font-weight: bold;
+            }
+            #submitQuiz {
+                font-family: Arial, sans-serif;
+                padding: 10px 20px;
+                border: 3px solid #53686f;
+                background-color: #FF6820;
+                border-radius: 5px;
+                color: white;
+                cursor: pointer;
+                font-size: 18px;
+                font-weight: bold;
+            }
+            #submitQuiz:hover {
+                background-color: #ff844a;
+            }
+            .floating-mode-bar {
+                position: fixed;
+                bottom: 0px;
+                left: 50%;
+                transform: translateX(-50%);
+                background-color: #68838B;
+                padding: 10px;
+                border-radius: 5px;
+                box-shadow: 0 0px 5px rgba(0, 0, 0, 1);
+                display: flex;
+                justify-content: center;
+                gap: 20px;
+                z-index: 1000;
+                width: 100%;
+            }
+            .mode-button {
+                padding: 10px 20px;
+                border: 0px solid #ccc;
+                background: #95a8ad;
+                color: #293437;
+                font-size: 20px;
+                font-weight: bold;
+                cursor: pointer;
+                border-radius: 5px;
+                transition: border-color 0.3s;
+            }
+            .mode-button.active {
+                border: 2px solid #ffffff;
+                background: #f0f0f0;
+                color: #293437;
             }
         }
-        #quizContainer {
-            display: none;
-            font-family: Arial, sans-serif;
-            max-width: 800px;
-            margin: 20px auto;
-            padding: 20px;
-            color: #53686f;
-            font-size: 25px;
-            font-weight: bold;
-        }
-        .question {
-            margin-bottom: 20px;
-            padding: 18px;
-            color: #53686f;
-            border: 5px solid #53686f;
-            border-radius: 10px;
-            background-color: #ffffff;
-            font-size: 16px;
-            font-weight: bold;
-        }
-        .options label {
-            display: block;
-            margin: 15px 0;
-            cursor: pointer;
-            color: #21292c;
-            font-size: 16px;
-            font-weight: bold;
-        }
-        #result {
-            margin-top: 20px;
-            padding: 10px;
-            display: none;
-            border: 5px solid #53686f;
-            border-radius: 5px;
-            font-size: 16px;
-            font-weight: bold;
-            background-color: #ffffff;
-            color: #007a33;
-        }
-        .wrong-answer {
-            color: #f65936;
-            margin: 10px 0;
-            font-size: 16px;
-            font-weight: bold;
-        }
-        #submitQuiz {
-            font-family: Arial, sans-serif;
-            padding: 10px 20px;
-            border: 3px solid #53686f;
-            background-color: #FF6820;
-            border-radius: 5px;
-            color: white;
-            cursor: pointer;
-            font-size: 18px;
-            font-weight: bold;
-        }
-        #submitQuiz:hover {
-            background-color: #ff844a;
-        }
-        .floating-mode-bar {
-            position: fixed;
-            bottom: 0px;
-            left: 50%;
-            transform: translateX(-50%);
-            background-color: #68838B;
-            padding: 10px;
-            border-radius: 5px;
-            box-shadow: 0 0px 5px rgba(0, 0, 0, 1);
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            z-index: 1000;
-            width: 100%;
-        }
-        .mode-button {
-            padding: 10px 20px;
-            border: 0px solid #ccc;
-            background: #95a8ad;
-            color: #293437;
-            font-size: 20px;
-            font-weight: bold;
-            cursor: pointer;
-            border-radius: 5px;
-            transition: border-color 0.3s;
-        }
-        .mode-button.active {
-            border: 2px solid #ffffff;
-            background: #f0f0f0;
-            color: #293437;
-        }
-}
     </style>
 </head>
 <body>
     <div id="infoBox">习得越南语</div>
     <div id="contactBox">讲师-阮玉煌 | Weixin：XiDeYueNanYu</div>
     <div id="contentContainer">
+        <div class="image-frame" id="imageFrame">
+            <img id="contentImage" src="" alt="Content Image">
+        </div>
         <div class="content-box" id="content"></div>
     </div>
     <div id="quizContainer">
@@ -797,7 +826,7 @@ const quizData = [
         correct: "Sự sẻ chia bình dị vẫn luôn hiện diện trong xã hội hiện đại"
     }
 ];
-                
+
         // Xử lý hiển thị văn bản với từ điển
         const content = document.getElementById('content');
         function renderText() {
@@ -810,8 +839,22 @@ const quizData = [
             content.innerHTML = html;
         }
 
-        // Gọi hàm renderText khi khởi tạo
+        // Xử lý hiển thị ảnh
+        const imageFrame = document.getElementById('imageFrame');
+        const contentImage = document.getElementById('contentImage');
+        const imageSrc = "anhminhhoa.jpg"; // Tên file ảnh cụ thể trong cùng thư mục
+        function renderImage() {
+            if (imageSrc) {
+                contentImage.src = imageSrc;
+                imageFrame.style.display = 'block';
+            } else {
+                imageFrame.style.display = 'none';
+            }
+        }
+
+        // Gọi hàm renderText và renderImage khi khởi tạo
         renderText();
+        renderImage();
 
         // Xử lý audio và bảng điều khiển
         const audioPlayer = document.getElementById("audioPlayer");
@@ -963,7 +1006,6 @@ const quizData = [
             pausePlayButton.textContent = "播";
         };
 
-
         // Biến lưu trữ vị trí cuộn và lựa chọn
         let contentScrollPosition = 0;
         let quizScrollPosition = 0;
@@ -1043,7 +1085,7 @@ const quizData = [
             const resultDiv = document.getElementById('result');
             resultDiv.style.display = 'block';
             resultDiv.innerHTML = `
-                <h3>YD2-结果: ${score}/${total} 答案正确</h3>
+                <h3>YD8-结果: ${score}/${total} 答案正确</h3>
                 <p>比例: ${(score/total * 100).toFixed(2)}%</p>
             `;
 
@@ -1082,6 +1124,7 @@ const quizData = [
             quizModeButton.classList.remove('active');
             floatingControls.style.display = 'block';
             renderText();
+            renderImage();
             
             // Khôi phục vị trí cuộn của content
             window.scrollTo(0, contentScrollPosition);
